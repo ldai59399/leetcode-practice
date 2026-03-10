@@ -94,6 +94,27 @@ class LeetCodeApp {
             this.currentFilter = e.target.value;
             this.renderProblemList();
         });
+        
+        // 笔记自动保存
+        document.getElementById('copyModeNotes').addEventListener('input', () => {
+            this.autoSaveNotes('copyModeNotes');
+        });
+        document.getElementById('practiceModeNotes').addEventListener('input', () => {
+            this.autoSaveNotes('practiceModeNotes');
+        });
+    }
+    
+    // 自动保存笔记
+    autoSaveNotes(notesId) {
+        if (!this.currentProblem) return;
+        const problemId = this.currentProblem.id;
+        const notes = document.getElementById(notesId).value;
+        
+        if (!this.problemStats[problemId]) {
+            this.problemStats[problemId] = { count: 0, code: '', notes: '' };
+        }
+        this.problemStats[problemId].notes = notes;
+        this.saveData('problemStats', this.problemStats);
     }
     
     // 更新统计数据
@@ -192,6 +213,10 @@ class LeetCodeApp {
         // 加载之前保存的代码并初始化编辑器
         const savedCode = this.problemStats[this.currentProblem.id]?.code || '';
         this.initCodeEditor(savedCode);
+        
+        // 加载之前保存的笔记
+        const savedNotes = this.problemStats[this.currentProblem.id]?.notes || '';
+        document.getElementById('copyModeNotes').value = savedNotes;
     }
     
     // 打开练习模式
@@ -213,6 +238,10 @@ class LeetCodeApp {
         // 重置答案显示
         document.getElementById('answerSection').style.display = 'none';
         document.getElementById('showAnswerBtn').style.display = 'inline-block';
+        
+        // 加载之前保存的笔记
+        const savedNotes = this.problemStats[this.currentProblem.id]?.notes || '';
+        document.getElementById('practiceModeNotes').value = savedNotes;
     }
     
     // 显示答案
@@ -229,7 +258,7 @@ class LeetCodeApp {
         
         // 更新练习次数
         if (!this.problemStats[problemId]) {
-            this.problemStats[problemId] = { count: 0, code: '' };
+            this.problemStats[problemId] = { count: 0, code: '', notes: '' };
         }
         this.problemStats[problemId].count++;
         
@@ -238,6 +267,11 @@ class LeetCodeApp {
             const code = this.codeEditor.getValue();
             this.problemStats[problemId].code = code;
         }
+        
+        // 保存笔记
+        const notesId = this.currentMode === 'copy' ? 'copyModeNotes' : 'practiceModeNotes';
+        const notes = document.getElementById(notesId).value;
+        this.problemStats[problemId].notes = notes;
         
         this.saveData('problemStats', this.problemStats);
         

@@ -312,14 +312,15 @@ body {
 .copy-mode-container {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
     gap: 20px;
     height: calc(100vh - 200px);
 }
 
 .problem-section,
 .solution-section,
-.code-section {
+.code-section,
+.notes-section {
     background: white;
     border-radius: 16px;
     padding: 20px;
@@ -341,13 +342,18 @@ body {
     flex-direction: column;
 }
 
+.notes-section {
+    grid-column: span 2;
+}
+
 .code-section h3 {
     margin-bottom: 15px;
 }
 
 .problem-section h3,
 .solution-section h3,
-.code-section h3 {
+.code-section h3,
+.notes-section h3 {
     font-size: 16px;
     color: #667eea;
     margin-bottom: 15px;
@@ -565,6 +571,38 @@ body {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
+/* 笔记区域样式 */
+.notes-section {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: auto;
+}
+
+.notes-editor {
+    width: 100%;
+    min-height: 150px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.notes-editor:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.notes-editor::placeholder {
+    color: #aaa;
+}
+
 /* 响应式 */
 @media (max-width: 1024px) {
     .copy-mode-container {
@@ -674,6 +712,16 @@ body {
         padding: 15px;
         width: 100%;
         min-height: auto;
+    }
+
+    .notes-section {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .notes-editor {
+        min-height: 120px;
+        font-size: 13px;
     }
 
     .code-section {
