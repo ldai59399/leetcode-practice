@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode 极速刷题</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Highlight.js for Python syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <!-- CodeMirror for code editor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 头部导航 -->
+        <header class="header">
+            <div class="logo">💎 LeetCode 极速刷题</div>
+            <div class="stats">
+                <span class="diamond-count">💎 <span id="diamondCount">0</span></span>
+                <span class="progress">已完成: <span id="completedCount">0</span>/100</span>
+            </div>
+        </header>
+
+        <!-- 主页面 -->
+        <main id="mainPage" class="page active">
+            <div class="controls">
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="copy">✍️ 抄写模式</button>
+                    <button class="mode-btn" data-mode="practice">🎯 练习模式</button>
+                </div>
+                <div class="filter-section">
+                    <label>筛选练习次数:</label>
+                    <select id="filterCount">
+                        <option value="all">全部题目</option>
+                        <option value="0">未练习 (0次)</option>
+                        <option value="1">练习1次</option>
+                        <option value="2">练习2次</option>
+                        <option value="3">练习3次及以上</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="difficulty-tabs">
+                <button class="tab-btn active" data-difficulty="all">全部</button>
+                <button class="tab-btn easy" data-difficulty="Easy">简单</button>
+                <button class="tab-btn medium" data-difficulty="Medium">中等</button>
+                <button class="tab-btn hard" data-difficulty="Hard">困难</button>
+            </div>
+
+            <div id="problemList" class="problem-list">
+                <!-- 题目列表将在这里动态生成 -->
+            </div>
+        </main>
+
+        <!-- 抄写模式页面 -->
+        <main id="copyModePage" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="app.goBack()">← 返回列表</button>
+                <h2 id="copyModeTitle">题目名称</h2>
+                <span id="copyModeDifficulty" class="difficulty-badge"></span>
+            </div>
+            <div class="copy-mode-container">
+                <div class="problem-section">
+                    <h3>📋 题目描述</h3>
+                    <div id="copyModeProblem" class="problem-content"></div>
+                </div>
+                <div class="solution-section">
+                    <h3>💡 题解参考</h3>
+                    <div id="copyModeSolution" class="solution-content"></div>
+                </div>
+                <div class="code-section">
+                    <h3>⌨️ 代码练习区</h3>
+                    <div id="codePractice" class="code-editor-container"></div>
+                    <button class="complete-btn" onclick="app.completeProblem()">✅ 完成练习 (+5💎)</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 练习模式页面 -->
+        <main id="practiceModePage" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="app.goBack()">← 返回列表</button>
+                <h2 id="practiceModeTitle">题目名称</h2>
+                <span id="practiceModeDifficulty" class="difficulty-badge"></span>
+            </div>
+            <div class="practice-mode-container">
+                <div class="problem-display">
+                    <h3>📋 题目描述</h3>
+                    <div id="practiceModeProblem" class="problem-content"></div>
+                </div>
+                <div class="answer-section" id="answerSection" style="display: none;">
+                    <h3>💡 答案解析</h3>
+                    <div id="practiceModeSolution" class="solution-content"></div>
+                </div>
+                <div class="practice-actions">
+                    <button id="showAnswerBtn" class="show-answer-btn" onclick="app.showAnswer()">👀 查看答案</button>
+                    <button class="complete-btn" onclick="app.completeProblem()">✅ 完成练习 (+5💎)</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 奖励弹窗 -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <div class="reward-animation">💎 +5</div>
+            <h3>恭喜完成!</h3>
+            <p>获得 5 颗钻石奖励!</p>
+            <button onclick="app.closeRewardModal()">继续</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
