@@ -661,8 +661,8 @@ body {
 
     /* 抄写模式移动端优化 */
     .copy-mode-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+        display: flex;
+        flex-direction: column;
         height: auto;
         gap: 15px;
         padding: 10px;
@@ -672,12 +672,21 @@ body {
     .solution-section,
     .code-section {
         padding: 15px;
-        grid-column: span 1;
-        grid-row: span 1;
+        width: 100%;
+        min-height: auto;
     }
 
     .code-section {
-        min-height: 300px;
+        min-height: 400px;
+        order: 3;
+    }
+
+    .problem-section {
+        order: 1;
+    }
+
+    .solution-section {
+        order: 2;
     }
 
     /* 练习模式移动端优化 */
@@ -693,14 +702,15 @@ body {
 
     /* 代码块移动端优化 */
     .code-block {
-        padding: 12px;
-        margin: 10px 0;
-        font-size: 12px;
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 11px;
+        border-radius: 8px;
     }
 
     .code-block code {
-        font-size: 12px;
-        line-height: 1.6;
+        font-size: 11px;
+        line-height: 1.5;
     }
 
     /* 代码编辑器移动端优化 */
@@ -713,12 +723,22 @@ body {
     /* 题目内容移动端优化 */
     .problem-content,
     .solution-content {
-        font-size: 14px;
-        line-height: 1.7;
+        font-size: 13px;
+        line-height: 1.6;
+        max-height: 300px;
+        overflow-y: auto;
     }
 
     .section-title {
-        font-size: 15px;
+        font-size: 14px;
+        margin: 12px 0 8px 0;
+    }
+
+    .problem-section h3,
+    .solution-section h3,
+    .code-section h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 
     /* 弹窗移动端优化 */
@@ -749,45 +769,83 @@ body {
 
 @media (max-width: 480px) {
     #app {
-        padding: 10px;
+        padding: 8px;
     }
 
     .logo {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .problem-title {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .problem-number {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .difficulty-badge {
-        padding: 3px 8px;
-        font-size: 11px;
+        padding: 2px 6px;
+        font-size: 10px;
     }
 
     .problem-stats {
-        font-size: 12px;
-    }
-
-    .code-block code {
         font-size: 11px;
     }
 
-    .code-editor {
-        font-size: 12px;
+    .code-block {
+        padding: 8px;
+        margin: 6px 0;
     }
 
-    /* CodeMirror 移动端优化 */
-    .CodeMirror {
-        font-size: 12px !important;
+    .code-block code {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .code-editor {
+        font-size: 11px;
+    }
+
+    .copy-mode-container {
+        padding: 8px;
+        gap: 12px;
+    }
+
+    .problem-section,
+    .solution-section,
+    .code-section {
+        padding: 12px;
+    }
+
+    .code-section {
+        min-height: 250px;
     }
 
     .code-editor-container {
         min-height: 250px;
+        height: 250px;
+    }
+
+    .problem-content,
+    .solution-content {
+        font-size: 12px;
+        max-height: 250px;
+    }
+
+    /* CodeMirror 移动端优化 */
+    .CodeMirror {
+        font-size: 11px !important;
+        line-height: 1.5 !important;
+    }
+
+    .code-editor-container {
+        min-height: 300px;
+        height: 300px;
+    }
+
+    .cm-s-dracula.CodeMirror {
+        border-radius: 8px;
     }
 }
 
